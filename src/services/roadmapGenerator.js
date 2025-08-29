@@ -50,7 +50,8 @@ class RoadmapGenerator {
         level: currentLevel,
         timeCommitment,
         preferences: preferredFormat,
-        domain: aiDomain
+        domain: aiDomain,
+        outputFormat
       },
       roadmap: customizedRoadmap,
       timeline,

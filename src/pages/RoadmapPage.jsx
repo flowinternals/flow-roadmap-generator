@@ -12,6 +12,7 @@ const RoadmapPage = () => {
   const [roadmapData, setRoadmapData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentView, setCurrentView] = useState('overview');
 
   useEffect(() => {
     const generateRoadmap = async () => {
@@ -96,7 +97,7 @@ const RoadmapPage = () => {
         </div>
 
         <div className="roadmap-actions">
-          <RoadmapExport roadmapData={roadmapData} />
+          <RoadmapExport roadmapData={roadmapData} currentView={currentView} />
         </div>
       </div>
 
@@ -125,7 +126,7 @@ const RoadmapPage = () => {
       </div>
 
       <div className="roadmap-content">
-        <RoadmapVisualization roadmapData={roadmapData} />
+        <RoadmapVisualization roadmapData={roadmapData} onViewChange={setCurrentView} />
       </div>
     </div>
   );

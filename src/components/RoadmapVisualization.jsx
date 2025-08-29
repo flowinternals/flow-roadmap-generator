@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
@@ -8,10 +9,32 @@ import {
 } from 'lucide-react';
 import './RoadmapVisualization.css';
 
-const RoadmapVisualization = ({ roadmapData }) => {
-  const [activeView, setActiveView] = useState('timeline');
+const RoadmapVisualization = ({ roadmapData, onViewChange }) => {
+  const [activeView, setActiveView] = useState('overview');
   const [expandedPhases, setExpandedPhases] = useState({});
   const [completedTopics, setCompletedTopics] = useState({});
+
+  // Set initial view based on user's selected output format
+  useEffect(() => {
+    if (roadmapData?.userProfile?.outputFormat) {
+      const format = roadmapData.userProfile.outputFormat;
+      if (format === 'interactive') {
+        setActiveView('timeline');
+        onViewChange?.('timeline');
+      } else if (format === 'pdf') {
+        setActiveView('pdf');
+        onViewChange?.('pdf');
+      } else if (format === 'checklist') {
+        setActiveView('checklist');
+        onViewChange?.('checklist');
+      }
+    }
+  }, [roadmapData, onViewChange]);
+
+  // Notify parent when view changes
+  useEffect(() => {
+    onViewChange?.(activeView);
+  }, [activeView, onViewChange]);
 
   const togglePhaseExpansion = (phaseId) => {
     setExpandedPhases(prev => ({
@@ -278,6 +301,156 @@ const RoadmapVisualization = ({ roadmapData }) => {
     );
   };
 
+  const renderPDFView = () => {
+    return (
+      <div className="pdf-view">
+        <div className="pdf-header">
+          <h3>PDF Document Format</h3>
+          <p>Structured document view optimized for printing and sharing</p>
+        </div>
+
+        <div className="pdf-document">
+          <div className="pdf-title-page">
+            <h1>{roadmapData.title}</h1>
+            <p className="subtitle">{roadmapData.description}</p>
+            
+            <div className="pdf-meta">
+              <div className="meta-item">
+                <strong>Level:</strong> {roadmapData.userProfile.level}
+              </div>
+              <div className="meta-item">
+                <strong>Domain:</strong> {roadmapData.userProfile.domain}
+              </div>
+              <div className="meta-item">
+                <strong>Duration:</strong> {roadmapData.estimatedDuration.weeks} weeks
+              </div>
+              <div className="meta-item">
+                <strong>Time Commitment:</strong> {roadmapData.userProfile.timeCommitment} hours/week
+              </div>
+            </div>
+          </div>
+
+          {roadmapData.roadmap.phases.map((phase, phaseIndex) => (
+            <div key={phase.id} className="pdf-phase">
+              <h2>Phase {phaseIndex + 1}: {phase.title}</h2>
+              <p className="phase-description">{phase.description}</p>
+              
+              <div className="pdf-topics">
+                {phase.topics.map((topic, topicIndex) => (
+                  <div key={topic.id} className="pdf-topic">
+                    <h3>{topicIndex + 1}. {topic.title}</h3>
+                    <p>{topic.description}</p>
+                    <div className="topic-details">
+                      <span className={`difficulty ${topic.difficulty}`}>
+                        Difficulty: {topic.difficulty}
+                      </span>
+                      <span className="duration">
+                        Duration: {topic.duration}
+                      </span>
+                      <span className="type">
+                        Type: {topic.type}
+                      </span>
+                    </div>
+                    
+                    {roadmapData.resources[topic.id] && (
+                      <div className="topic-resources">
+                        <h4>Recommended Resources:</h4>
+                        <ul>
+                          {roadmapData.resources[topic.id].map((resource, idx) => (
+                            resource && (
+                              <li key={idx}>
+                                <strong>{resource.title}</strong>
+                                {resource.author && ` by ${resource.author}`}
+                                {resource.provider && ` (${resource.provider})`}
+                                {resource.url && (
+                                  <span className="url"> - {resource.url}</span>
+                                )}
+                              </li>
+                            )
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderChecklistView = () => {
+    const allTopics = roadmapData.roadmap.phases.flatMap(phase => 
+      phase.topics.map(topic => ({ ...topic, phaseName: phase.title }))
+    );
+
+    return (
+      <div className="checklist-view">
+        <div className="checklist-header">
+          <h3>Simple Checklist Format</h3>
+          <p>Track your progress through each learning topic</p>
+        </div>
+
+        <div className="checklist-stats">
+          <div className="progress-summary">
+            <span className="completed-count">
+              {Object.values(completedTopics).filter(Boolean).length}
+            </span>
+            <span className="separator">/</span>
+            <span className="total-count">{allTopics.length}</span>
+            <span className="label">Topics Completed</span>
+          </div>
+        </div>
+
+        <div className="checklist-container">
+          {roadmapData.roadmap.phases.map((phase, phaseIndex) => (
+            <div key={phase.id} className="checklist-phase">
+              <h3 className="phase-title">
+                <span className="phase-number">Phase {phaseIndex + 1}</span>
+                {phase.title}
+              </h3>
+              
+              <div className="checklist-items">
+                {phase.topics.map((topic, topicIndex) => (
+                  <div key={topic.id} className="checklist-item">
+                    <label className="checklist-label">
+                      <input
+                        type="checkbox"
+                        checked={completedTopics[topic.id] || false}
+                        onChange={() => toggleTopicCompletion(topic.id)}
+                        className="checklist-checkbox"
+                      />
+                      <span className="checkbox-custom"></span>
+                      <div className="checklist-content">
+                        <h4 className="topic-title">
+                          {phaseIndex + 1}.{topicIndex + 1} {topic.title}
+                        </h4>
+                        <p className="topic-description">{topic.description}</p>
+                        <div className="topic-meta">
+                          <span className={`difficulty ${topic.difficulty}`}>
+                            {topic.difficulty}
+                          </span>
+                          <span className="duration">
+                            {topic.duration}
+                          </span>
+                          <span className="type">
+                            {topic.type}
+                          </span>
+                        </div>
+                      </div>
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="roadmap-visualization">
       <div className="view-tabs">
@@ -297,7 +470,19 @@ const RoadmapVisualization = ({ roadmapData }) => {
           className={activeView === 'timeline' ? 'active' : ''}
           onClick={() => setActiveView('timeline')}
         >
-          Timeline
+          Interactive Timeline
+        </button>
+        <button 
+          className={activeView === 'pdf' ? 'active' : ''}
+          onClick={() => setActiveView('pdf')}
+        >
+          PDF Format
+        </button>
+        <button 
+          className={activeView === 'checklist' ? 'active' : ''}
+          onClick={() => setActiveView('checklist')}
+        >
+          Checklist
         </button>
       </div>
 
@@ -305,6 +490,8 @@ const RoadmapVisualization = ({ roadmapData }) => {
         {activeView === 'overview' && renderOverview()}
         {activeView === 'phases' && renderPhaseView()}
         {activeView === 'timeline' && renderTimelineView()}
+        {activeView === 'pdf' && renderPDFView()}
+        {activeView === 'checklist' && renderChecklistView()}
       </div>
     </div>
   );
