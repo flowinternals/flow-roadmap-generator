@@ -1,0 +1,108 @@
+.roadmap-export {
+  display: flex;
+  gap: 1rem;
+}
+
+.export-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.export-dropdown,
+.share-dropdown {
+  position: relative;
+}
+
+.export-button,
+.share-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  font-weight: 600;
+}
+
+.export-button:hover,
+.share-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.export-button .icon,
+.share-button .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #e1e5e9;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 180px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+  background: #f8f9fa;
+}
+
+.dropdown-item .icon {
+  width: 16px;
+  height: 16px;
+  color: #667eea;
+}
+
+.dropdown-item:not(:last-child) {
+  border-bottom: 1px solid #f1f3f4;
+}
+
+@media (max-width: 768px) {
+  .roadmap-export {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .export-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .export-button,
+  .share-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .dropdown-menu {
+    left: 0;
+    right: 0;
+    min-width: auto;
+  }
+}

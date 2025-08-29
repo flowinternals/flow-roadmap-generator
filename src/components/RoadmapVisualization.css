@@ -1,0 +1,533 @@
+.roadmap-visualization {
+  max-width: 100%;
+}
+
+.view-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.view-tabs button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.view-tabs button:hover {
+  color: #667eea;
+  background: var(--background-secondary);
+}
+
+.view-tabs button.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+}
+
+.view-content {
+  min-height: 400px;
+}
+
+/* Overview View */
+.overview-view {
+  padding: 1rem 0;
+}
+
+.overview-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.overview-header h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.progress-section {
+  background: var(--background-secondary);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border-color);
+}
+
+.progress-stats {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.progress-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(#667eea 0deg, #e1e5e9 0deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.progress-circle::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: #f8f9fa;
+  border-radius: 50%;
+}
+
+.progress-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  z-index: 1;
+}
+
+.progress-label {
+  font-size: 0.8rem;
+  color: #666;
+  z-index: 1;
+}
+
+.progress-details {
+  display: flex;
+  gap: 2rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat .number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.stat .label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e1e5e9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.user-profile {
+  background: #fff;
+  border: 2px solid #e1e5e9;
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.user-profile h4 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.profile-item .icon {
+  width: 18px;
+  height: 18px;
+  color: #667eea;
+}
+
+/* Phase View */
+.phase-view {
+  padding: 1rem 0;
+}
+
+.phase-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.phases-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.phase-card {
+  border: 2px solid #e1e5e9;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.phase-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+}
+
+.phase-header-bar {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.phase-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.phase-number {
+  background: #667eea;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.phase-info h4 {
+  margin: 0;
+  color: #333;
+}
+
+.phase-info p {
+  margin: 0.25rem 0 0 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.phase-content {
+  padding: 1.5rem;
+}
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.topic-card {
+  border: 1px solid #e1e5e9;
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.topic-card:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.topic-card.completed {
+  background: #f0fff4;
+  border-color: #4ecdc4;
+}
+
+.topic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.topic-type {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.topic-icon {
+  width: 18px;
+  height: 18px;
+  color: #667eea;
+}
+
+.difficulty {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.difficulty.beginner {
+  background: #e8f8f5;
+  color: #4ecdc4;
+}
+
+.difficulty.intermediate {
+  background: #fef9e7;
+  color: #f39c12;
+}
+
+.difficulty.advanced {
+  background: #fdf2f2;
+  color: #e74c3c;
+}
+
+.completion-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.completed-icon {
+  width: 24px;
+  height: 24px;
+  color: #4ecdc4;
+}
+
+.incomplete-circle {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  transition: border-color 0.3s ease;
+}
+
+.completion-button:hover .incomplete-circle {
+  border-color: #4ecdc4;
+}
+
+.topic-card h5 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.topic-card p {
+  margin: 0 0 1rem 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.topic-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.topic-meta .duration {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.topic-meta .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.topic-resources {
+  border-top: 1px solid #e1e5e9;
+  padding-top: 1rem;
+}
+
+.topic-resources h6 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.resource-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.resource-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #667eea;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.resource-link:hover {
+  color: #5a67d8;
+}
+
+.resource-link .icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Timeline View */
+.timeline-view {
+  padding: 1rem 0;
+}
+
+.timeline-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.timeline-chart {
+  margin-bottom: 3rem;
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid #e1e5e9;
+}
+
+.timeline-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.timeline-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.timeline-line {
+  width: 2px;
+  height: 60px;
+  background: #e1e5e9;
+  margin-top: 0.5rem;
+}
+
+.timeline-content {
+  flex: 1;
+  background: white;
+  border: 1px solid #e1e5e9;
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.timeline-weeks {
+  background: #667eea;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.timeline-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.timeline-meta .duration {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.timeline-meta .phase {
+  color: #667eea;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .view-tabs {
+    flex-direction: column;
+  }
+  
+  .progress-stats {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .progress-details {
+    justify-content: center;
+  }
+  
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .topics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .timeline-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .timeline-marker {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  
+  .timeline-line {
+    display: none;
+  }
+}

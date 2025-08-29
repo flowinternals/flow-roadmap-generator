@@ -1,0 +1,146 @@
+.App {
+  min-height: 100vh;
+  background: var(--app-background);
+  color: var(--header-text);
+  position: relative;
+  overflow-x: hidden;
+  transition: all var(--transition-normal);
+}
+
+.App::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(78, 205, 196, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.App-header {
+  padding: var(--spacing-xl);
+  text-align: center;
+  background: var(--background-glass);
+  backdrop-filter: blur(15px);
+  border-radius: var(--radius-lg);
+  margin: var(--spacing-xl);
+  box-shadow: var(--shadow-glass);
+  border: 1px solid var(--border-glass);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.App-header .header-content {
+  flex: 1;
+  text-align: center;
+}
+
+.App-header .theme-toggle-container {
+  display: flex;
+  align-items: center;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 700;
+  background: var(--secondary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  from {
+    filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.3));
+  }
+  to {
+    filter: drop-shadow(0 0 20px rgba(78, 205, 196, 0.5));
+  }
+}
+
+.App-header p {
+  margin: var(--spacing-sm) 0 0 0;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  opacity: 0.9;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+main {
+  padding: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App-header {
+    margin: var(--spacing-md);
+    padding: var(--spacing-lg);
+  }
+  
+  main {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    margin: var(--spacing-sm);
+    padding: var(--spacing-md);
+  }
+  
+  .App-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .App-header p {
+    font-size: 1rem;
+  }
+  
+  main {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* Animation for smooth transitions */
+.App * {
+  transition: all var(--transition-normal);
+}
+
+/* Loading and error states */
+.App .loading-state,
+.App .error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.App .loading-state {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  margin: var(--spacing-xl);
+}
+
+.App .error-state {
+  background: rgba(231, 76, 60, 0.1);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  border-radius: var(--radius-lg);
+  margin: var(--spacing-xl);
+}
